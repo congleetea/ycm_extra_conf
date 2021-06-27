@@ -20,44 +20,6 @@ import ycm_core
 import fnmatch
 # import subprocess
 
-# def getEnvVars():
-#     variables = subprocess.Popen(
-#     ["bash", "-c", "trap 'env' exit; source \"$1\" > /dev/null 2>&1",
-#        "_", os.environ.get('HOME') + "/.bashrc"],
-#     shell=False, stdout=subprocess.PIPE).communicate()[0]
-#     print os.environ.get('HOME') + "/.bashrc"
-
-#     return variables
-
-
-def GetRPGIncludePaths():
-    """Return a list of potential include directories
-    The directories are looked for in $DRC_BASE and $DRC_BASE/software/externals.
-    """
-    # envVars = getEnvVars()
-    # print envVars
-
-    includes = []
-    includes.append(os.environ.get('HOME') + '/rpg-navigation/software/build/include')
-    externals = os.environ.get('HOME') + '/rpg-navigation/software/externals'
-
-    for dirPath in os.walk(externals):
-        if fnmatch.fnmatch(dirPath[0], 'include'): # if the path has 'include' - append it
-            includes.append(dirPath[0])
-
-
-
-    return includes
-
-def GetRPGIncludeFlags():
-    includes = GetRPGIncludePaths()
-    flags = []
-    for include in includes:
-        flags.append('-isystem')
-        flags.append(include)
-
-    return flags
-
 def GetRosIncludePaths():
     """Return a list of potential include directories
     The directories are looked for in $ROS_WORKSPACE.
@@ -136,7 +98,7 @@ default_flags = [
     #'-DMAVLINK_DIALECT=ardupilotmega',
 ]
 
-flags = default_flags + GetRosIncludeFlags() + GetRPGIncludeFlags()
+flags = default_flags + GetRosIncludeFlags()
 
 
 def GetCompilationDatabaseFolder(filename):
